@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #6a11cb;
+    }
+    .card-header {
+      background-color: #2575fc;
+      color: white;
+    }
+    .card-body {
+      background-color: #6a11cb;
+      background: transparent;
+      backdrop-filter: blur(20px);
+    }
+    .btn-primary {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+    .btn-warning {
+      background-color: #ffc107;
+      border-color: #ffc107;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <!-- Add Student Section -->
+    <div class="card mb-3">
+      <div class="card-header">
+        <h4>Add Student</h4>
+      </div>
+      <div class="card-body">
+        <form id="studentForm">
+          <div class="mb-3">
+            <label for="studentName" class="form-label">Student Name</label>
+            <input type="text" class="form-control" id="studentName" placeholder="Enter student name" required>
+          </div>
+          <div class="mb-3">
+            <label for="studentId" class="form-label">Student ID</label>
+            <input type="text" class="form-control" id="studentId" placeholder="Enter student ID" required>
+          </div>
+          <div class="mb-3">
+            <label for="studentGender" class="form-label">Gender</label>
+            <select class="form-select" id="studentGender" required>
+              <option value="" disabled selected>Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="studentDob" class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" id="studentDob" required>
+          </div>
+          <div class="mb-3">
+            <label for="studentNationality" class="form-label">Nationality</label>
+            <select class="form-select" id="studentNationality" required>
+              <option value="" disabled selected>Select nationality</option>
+              <option value="American">American</option>
+              <option value="Canadian">Canadian</option>
+              <option value="British">British</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Student</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <input type="text" id="searchInput" class="form-control w-50 me-2" placeholder="Search by name or ID" onkeyup="inlineSearch()">
+      <select id="filterGender" class="form-select w-25" onchange="filterByGender()">
+        <option value="">Filter by Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+
+    <!-- Student List Section -->
+    <div class="card">
+      <div class="card-header">
+        <h4>Student List</h4>
+      </div>
+      <div class="card-body" id="studentList">
+        <p>No students added yet.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const studentForm = document.getElementById('studentForm');
+    const studentList = document.getElementById('studentList');
+    const searchInput = document.getElementById('searchInput');
+    const students = [];
+
+    studentForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('studentName').value;
+      const id = document.getElementById('studentId').value;
+      const gender = document.getElementById('studentGender').value;
+      const dob = document.getElementById('studentDob').value;
+      const nationality = document.getElementById('studentNationality').value;
+
+      students.push({ name, id, gender, dob, nationality });
+      updateStudentList();
+      studentForm.reset();
+    });
+
+    function updateStudentList(filteredStudents = students) {
+      if (filteredStudents.length === 0) {
+        studentList.innerHTML = '<p>No students added yet.</p>';
+        return;
+      }
+
+      let listHTML = '<div class="row">';
+      filteredStudents.forEach((student, index) => {
+        listHTML += `
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">${student.name}</h5>
+              <p><strong>ID:</strong> ${student.id}</p>
+              <p><strong>Gender:</strong> ${student.gender}</p>
+              <button class="btn btn-warning btn-sm" onclick="viewStudent(${index})">View</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteStudent(${index})">Delete</button>
+              <button class="btn btn-primary btn-sm" onclick="editStudent(${index})">Edit</button>
+            </div>
+          </div>
+        </div>
+        `;
+      });
+      listHTML += '</div>';
+      studentList.innerHTML = listHTML;
+    }
+
+    function inlineSearch() {
+      const query = searchInput.value.toLowerCase();
+      const filtered = students.filter(
+        student =>
+          student.name.toLowerCase().includes(query) ||
+          student.id.toLowerCase().includes(query)
+      );
+      updateStudentList(filtered);
+    }
+
+    function filterByGender() {
+      const gender = document.getElementById('filterGender').value;
+      const filtered = gender ? students.filter(student => student.gender === gender) : students;
+      updateStudentList(filtered);
+    }
+
+    function deleteStudent(index) {
+      students.splice(index, 1);
+      updateStudentList();
+    }
+
+    function viewStudent(index) {
+      alert(`Viewing student: ${students[index].name}`);
+    }
+
+    function editStudent(index) {
+      alert(`Editing student: ${students[index].name}`);
+    }
+  </script>
+</body>
+</html>
