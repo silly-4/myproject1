@@ -1,254 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Management</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #6a11cb;
-    }
-    .card-header {
-      background-color: #feffff;
-      color: rgb(0, 0, 0);
-    }
-    .btn-primary {
-      background-color: #28a745;
-      border-color: #28a745;
-    }
-    .btn-danger {
-      background-color: #dc3545;
-      border-color: #dc3545;
-    }
-    .btn-warning {
-      background-color: #ffc107;
-      border-color: #ffc107;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Management</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+  </head>
 
-<body>
-  <div class="container mt-5">
-    
-    <div class="card mb-3">
-      <div class="card-header">
-        <h4>Add Student</h4>
-      </div>
-      <div class="card-body">
-        <form id="studentForm">
-          <div class="mb-3">
-            <label for="studentName" class="form-label">Student Name</label>
-            <input type="text" class="form-control" id="studentName" placeholder="Enter student name" required>
-          </div>
-          <div class="mb-3">
-            <label for="studentId" class="form-label">Student ID</label>
-            <input type="text" class="form-control" id="studentId" placeholder="Enter student ID" required>
-          </div>
-          <div class="mb-3">
-            <label for="studentGender" class="form-label">Gender</label>
-            <select class="form-select" id="studentGender" required>
-              <option value="" disabled selected>Select gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="studentDob" class="form-label">Date of Birth</label>
-            <input type="date" class="form-control" id="studentDob" required>
-          </div>
-          <div class="mb-3">
-            <label for="studentNationality" class="form-label">Nationality</label>
-            <input type="text" class="form-control" id="studentNationality" placeholder="Enter nationality" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Add Student</button>
-        </form>
-      </div>
-    </div>
-
-    
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <input type="text" id="searchInput" class="form-control w-50 me-2" placeholder="Search by name or ID" onkeyup="inlineSearch()">
-      <select id="filterGender" class="form-select w-25" onchange="filterByGender()">
-        <option value="">Filter by Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select>
-    </div>
-
-    
-    <div class="card">
-      <div class="card-header">
-        <h4>Student List</h4>
-      </div>
-      <div class="card-body" id="studentList">
-        <p>No students added yet.</p>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="viewModalLabel">Student Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <body style="background-color: #6a11cb;">
+    <div class="container mt-5">
+      <div class="card mb-4">
+        
+        <div class="card-header">
+          <h4>Add Student</h4>
         </div>
-        <div class="modal-body" id="viewModalBody">
-          
-        </div>
-      </div>
-    </div>
-  </div>
 
-
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="editStudentForm">
+        <div class="card-body">
+          <form id="studentForm">
             <div class="mb-3">
-              <label for="editStudentName" class="form-label">Student Name</label>
-              <input type="text" class="form-control" id="editStudentName" required>
+              <label for="" class="form-label">Student Name</label>
+              <input type="text" class="form-control" id="studentName" placeholder="Enter student name" required/>
             </div>
+
             <div class="mb-3">
-              <label for="editStudentId" class="form-label">Student ID</label>
-              <input type="text" class="form-control" id="editStudentId" required>
+              <label for="studentId" class="form-label">Student ID</label>
+              <input type="text" class="form-control" id="studentId" placeholder="Enter student ID" required/>
             </div>
+
             <div class="mb-3">
-              <label for="editStudentGender" class="form-label">Gender</label>
-              <select class="form-select" id="editStudentGender" required>
+              <label for="studentGender" class="form-label">Gender</label>
+              <select class="form-select" id="studentGender" required>
+                <option value="" disabled selected>Select gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
             </div>
+
             <div class="mb-3">
-              <label for="editStudentDob" class="form-label">Date of Birth</label>
-              <input type="date" class="form-control" id="editStudentDob" required>
+              <label for="studentDob" class="form-label">Date of Birth</label>
+              <input type="date" class="form-control" id="studentDob" required />
             </div>
+
             <div class="mb-3">
-              <label for="editStudentNationality" class="form-label">Nationality</label>
-              <input type="text" class="form-control" id="editStudentNationality" required>
+              <label for="studentNationality" class="form-label">Nationality</label>
+              <input type="text" class="form-control" id="studentNationality" placeholder="Enter nationality" required/>
             </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+
+            <button type="submit" class="btn btn-primary">Add Student</button>
           </form>
         </div>
       </div>
-    </div>
-  </div>
 
-  <script>
-    const studentForm = document.getElementById('studentForm');
-    const studentList = document.getElementById('studentList');
-    const searchInput = document.getElementById('searchInput');
-    const students = [];
-    let currentEditIndex = null;
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <input type="text" id="searchInput" class="form-control w-50" placeholder="Search by name or ID"/>
+        
+        <select id="filterGender" class="form-select w-25">
+          <option value="">Filter by Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
 
-    studentForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById('studentName').value;
-      const id = document.getElementById('studentId').value;
-      const gender = document.getElementById('studentGender').value;
-      const dob = document.getElementById('studentDob').value;
-      const nationality = document.getElementById('studentNationality').value;
-
-      students.push({ name, id, gender, dob, nationality });
-      updateStudentList();
-      studentForm.reset();
-    });
-
-    function updateStudentList(filteredStudents = students) {
-      if (filteredStudents.length === 0) {
-        studentList.innerHTML = '<p>No students added yet.</p>';
-        return;
-      }
-
-      let listHTML = '<div class="row">';
-      filteredStudents.forEach((student, index) => {
-        listHTML += `
+      <div class="card">
+        <div class="card-header">
+          <h4>Student List</h4>
+        </div>
+        
         <div class="col-md-4 mb-3">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">${student.name}</h5>
-              <p><strong>ID:</strong> ${student.id}</p>
-              <p><strong>Gender:</strong> ${student.gender}</p>
-              <p><strong>Nationality:</strong> ${student.nationality}</p>
-              <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#viewModal" onclick="viewStudent(${index})">View</button>
-              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="editStudent(${index})">Edit</button>
-              <button class="btn btn-danger btn-sm" onclick="deleteStudent(${index})">Delete</button>
+              <h5 class="card-title"></h5>
+              <strong>
+                <p>Student Name:</p>
+                <p>ID:</p>
+                <p>Nationality:</p>
+              </strong>
+              <button class="btn btn-primary btn-sm">View</button>
+              <button class="btn btn-warning btn-sm">Edit</button>
+              <button class="btn btn-danger btn-sm">Delete</button>
             </div>
           </div>
         </div>
-        `;
-      });
-      listHTML += '</div>';
-      studentList.innerHTML = listHTML;
-    }
 
-    function inlineSearch() {
-      const query = searchInput.value.toLowerCase();
-      const filtered = students.filter(
-        student =>
-          student.name.toLowerCase().includes(query) ||
-          student.id.toLowerCase().includes(query)
-      );
-      updateStudentList(filtered);
-    }
-
-    function filterByGender() {
-      const gender = document.getElementById('filterGender').value;
-      const filtered = gender ? students.filter(student => student.gender === gender) : students;
-      updateStudentList(filtered);
-    }
-
-    function viewStudent(index) {
-      const student = students[index];
-      const modalBody = document.getElementById('viewModalBody');
-      modalBody.innerHTML = `
-        <p><strong>Name:</strong> ${student.name}</p>
-        <p><strong>ID:</strong> ${student.id}</p>
-        <p><strong>Gender:</strong> ${student.gender}</p>
-        <p><strong>Date of Birth:</strong> ${student.dob}</p>
-        <p><strong>Nationality:</strong> ${student.nationality}</p>
-      `;
-    }
-
-    function deleteStudent(index) {
-      students.splice(index, 1);
-      updateStudentList();
-    }
-
-    function editStudent(index) {
-      currentEditIndex = index;
-      const student = students[index];
-      document.getElementById('editStudentName').value = student.name;
-      document.getElementById('editStudentId').value = student.id;
-      document.getElementById('editStudentGender').value = student.gender;
-      document.getElementById('editStudentDob').value = student.dob;
-      document.getElementById('editStudentNationality').value = student.nationality;
-
-      const editForm = document.getElementById('editStudentForm');
-      editForm.onsubmit = function (e) {
-        e.preventDefault();
-        student.name = document.getElementById('editStudentName').value;
-        student.id = document.getElementById('editStudentId').value;
-        student.gender = document.getElementById('editStudentGender').value;
-        student.dob = document.getElementById('editStudentDob').value;
-        student.nationality = document.getElementById('editStudentNationality').value;
-
-        updateStudentList();
-        const editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
-        editModal.hide();
-      };
-    }
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+      </div>
+    </div>
+  </body>
 </html>
