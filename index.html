@@ -5,32 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script>
-  
-        function validateCredentials(event) {
-            event.preventDefault();
-
-            const correctUsername = "admin";
-            const correctPassword = "123";
-
-   
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            const feedback = document.getElementById("feedback");
-
-            if (username === correctUsername && password === correctPassword) {
-                feedback.style.color = "green";
-                feedback.textContent = "Login successful! Redirecting...";
-                setTimeout(() => {
-                    window.location.href = "dashboard.html"; 
-                }, 1500);
-            } else {
-                feedback.style.color = "red";
-                feedback.textContent = "Invalid username or password.";
-            }
-        }
-    </script>
+    <script src="script.js"></script>
     <style>
         body {
             background: linear-gradient(to right, #6a11cb, #2575fc);
@@ -39,7 +14,7 @@
             justify-content: center;
             align-items: center;
         }
-        .signin-container {
+        .signin-box {
             width: 100%;
             max-width: 400px;
         }
@@ -51,11 +26,11 @@
     </style>
 </head>
 <body>
-    <div class="signin-container">
+    <div class="signin-box">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title text-center">Sign In</h5>
-                <form onsubmit="validateCredentials(event)">
+                <form onsubmit="check(event)">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
